@@ -2,9 +2,9 @@
 
 ## Demo
 
-1 - Download
-2 - Install Dependencies (npm / gem)
-3 - Run local server
+- Download
+- Install Dependencies (npm / gem)
+- Run local server
 
 ## Technology Stack
 
@@ -15,7 +15,7 @@
 
 ### Why I chose Redux / Getting started with the Front-end
 
-I am currently working on project to create a ![Redux CLI and framework](https://www.npmjs.com/package/eos-redux) so I jump at a chance to consistently be testing out my project in a real world environment.
+I am currently working on project to create a [Redux CLI and framework](https://www.npmjs.com/package/eos-redux) so I jumped at a chance to continue to use and test out my project in a real world environment.
 
 Beyond that this project lends itself to a single page framework so a javascript front-end was an easy decision.
 
@@ -42,6 +42,8 @@ Originally my idea was to go with no back end and allow a simple API call to pro
   end
 
 ```
+
+
 
 ## Outside Code
 
