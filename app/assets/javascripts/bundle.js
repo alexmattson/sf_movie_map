@@ -28685,6 +28685,8 @@
 	
 	var _search2 = _interopRequireDefault(_search);
 	
+	var _map_api_util = __webpack_require__(374);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28702,7 +28704,7 @@
 	    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 	
 	    _this.updateMap = _this.updateMap.bind(_this);
-	    _this.generateMap = _this.generateMap.bind(_this);
+	    // this.generateMap = this.generateMap.bind(this);
 	    return _this;
 	  }
 	
@@ -28714,7 +28716,7 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(newProps) {
-	      this.generateMap(newProps.locations);
+	      (0, _map_api_util.generateMap)(newProps.locations);
 	    }
 	  }, {
 	    key: 'updateMap',
@@ -28724,42 +28726,7 @@
 	        var result = JSON.stringify(location).indexOf(val);
 	        return result !== -1;
 	      });
-	      this.generateMap(locations);
-	    }
-	  }, {
-	    key: 'generateMap',
-	    value: function generateMap(locations) {
-	      var _this2 = this;
-	
-	      this.map = new google.maps.Map(document.getElementById('map'), {
-	        center: { lat: 37.773972, lng: -122.431297 },
-	        zoom: 13
-	      });
-	
-	      var addInfo = function addInfo(property, location) {
-	        if (location[property]) {
-	          return '<p><strong>' + property + ':</strong> ' + location[property] + '</p>';
-	        } else {
-	          return '';
-	        }
-	      };
-	
-	      var infowindow = new google.maps.InfoWindow();
-	      locations.forEach(function (location) {
-	
-	        var contentString = '<div id="content">' + '<div id="siteNotice">' + '</div>' + ('<h1 id="firstHeading" class="firstHeading">\n          ' + location.Title + ' (' + location.Release_Year + ')\n        </h1>') + '<div id="bodyContent">' + addInfo('Location', location) + addInfo('Fun_Facts', location) + addInfo('Distributor', location) + addInfo('Director', location) + ('<p><strong>Cast:</strong>\n            ' + (location.Actor_1 ? location.Actor_1 : '') + '\n            ' + (location.Actor_2 ? ', ' + location.Actor_2 : '') + '\n            ' + (location.Actor_3 ? ', ' + location.Actor_3 : '') + '\n          </p>') + addInfo('Writer', location) + '</div>' + '</div>';
-	
-	        var marker = new google.maps.Marker({
-	          map: _this2.map,
-	          position: { lat: parseFloat(location.Latitude),
-	            lng: parseFloat(location.Longitude) }
-	        });
-	
-	        marker.addListener('mouseover', function () {
-	          infowindow.setContent(contentString);
-	          infowindow.open(this.map, marker);
-	        });
-	      });
+	      (0, _map_api_util.generateMap)(locations);
 	    }
 	  }, {
 	    key: 'render',
@@ -32288,7 +32255,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.fetchLocations = undefined;
+	exports.generateMap = exports.fetchLocations = undefined;
 	
 	var _jquery = __webpack_require__(375);
 	
@@ -32301,6 +32268,38 @@
 	    method: 'GET',
 	    url: '/api/locations',
 	    success: success
+	  });
+	};
+	
+	var generateMap = exports.generateMap = function generateMap(locations) {
+	  var map = new google.maps.Map(document.getElementById('map'), {
+	    center: { lat: 37.773972, lng: -122.431297 },
+	    zoom: 13
+	  });
+	
+	  var addInfo = function addInfo(property, location) {
+	    if (location[property]) {
+	      return '<p><strong>' + property + ':</strong> ' + location[property] + '</p>';
+	    } else {
+	      return '';
+	    }
+	  };
+	
+	  var infowindow = new google.maps.InfoWindow();
+	  locations.forEach(function (location) {
+	
+	    var contentString = '<div id="content">' + '<div id="siteNotice">' + '</div>' + ('<h1 id="firstHeading" class="firstHeading">\n        ' + location.Title + ' (' + location.Release_Year + ')\n      </h1>') + '<div id="bodyContent">' + addInfo('Location', location) + addInfo('Fun_Facts', location) + addInfo('Distributor', location) + addInfo('Director', location) + ('<p><strong>Cast:</strong>\n          ' + (location.Actor_1 ? location.Actor_1 : '') + '\n          ' + (location.Actor_2 ? ', ' + location.Actor_2 : '') + '\n          ' + (location.Actor_3 ? ', ' + location.Actor_3 : '') + '\n        </p>') + addInfo('Writer', location) + '</div>' + '</div>';
+	
+	    var marker = new google.maps.Marker({
+	      map: map,
+	      position: { lat: parseFloat(location.Latitude),
+	        lng: parseFloat(location.Longitude) }
+	    });
+	
+	    marker.addListener('mouseover', function () {
+	      infowindow.setContent(contentString);
+	      infowindow.open(this.map, marker);
+	    });
 	  });
 	};
 
@@ -59171,14 +59170,9 @@
 	        var options = {
 	          data: this.state.autoComplete,
 	          getValue: "text",
-	          list: {
-	            match: {
-	              enabled: true
-	            }
-	          },
+	          list: { match: { enabled: true } },
 	          theme: "square"
 	        };
-	
 	        $("#search").easyAutocomplete(options);
 	      }
 	    }
@@ -59214,9 +59208,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'logo' },
-	          _react2.default.createElement('img', { src: 'https://s13.postimg.org/aonl98xzn/movie.png',
-	            border: '0',
-	            alt: 'postimage' }),
+	          _react2.default.createElement('img', { src: 'https://s13.postimg.org/aonl98xzn/movie.png' }),
 	          _react2.default.createElement(
 	            'h1',
 	            null,

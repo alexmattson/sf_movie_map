@@ -15,14 +15,9 @@ class Search extends React.Component {
       var options = {
         data: (this.state.autoComplete),
         getValue: "text",
-        list: {
-          match: {
-            enabled: true
-          }
-        },
+        list: {match: {enabled: true}},
         theme: "square"
       };
-
       $("#search").easyAutocomplete(options);
     }
   }
@@ -50,9 +45,7 @@ class Search extends React.Component {
     return(
       <div className='search-bar'>
         <div className='logo'>
-          <img src='https://s13.postimg.org/aonl98xzn/movie.png'
-            border='0'
-            alt='postimage'/>
+          <img src='https://s13.postimg.org/aonl98xzn/movie.png'/>
           <h1>
             SF Movie Map
           </h1>

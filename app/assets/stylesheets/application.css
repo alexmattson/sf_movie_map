@@ -19,10 +19,12 @@ body {
   font-family: sans-serif;
 }
 
+/* Map */
 .map {
  height: calc(100vh - 135px);
 }
 
+/* Header */
 .search-bar {
   height: 135px;
   background: red;
@@ -49,7 +51,10 @@ body {
   width: 100%;
 }
 
-
+/* Over Rides */
+.easy-autocomplete {
+  width: calc(100% - 22px) !important;
+}
 .easy-autocomplete input {
   padding: 10px;
   border-radius: 0;
